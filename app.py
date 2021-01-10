@@ -8,7 +8,7 @@ from dotenv import load_dotenv, find_dotenv
 import configparser
 
 import random
-
+load_dotenv(find_dotenv())
 app = Flask(__name__)
 
 
