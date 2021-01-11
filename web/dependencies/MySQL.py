@@ -26,10 +26,9 @@ class MySQL:
         cursor = connection.cursor()
         
 
-        try:
-            cursor.execute(sql_command)
-        except:
-            raise Exception("uplaod failed")
+       
+        cursor.execute(sql_command)
+
 
         connection.commit()
         cursor.close()
@@ -37,11 +36,14 @@ class MySQL:
 
     def download(self, sql_command: str):
         connection = pymysql.connect(
-            self.hostname,
-            self.username,
-            self.password,
-            self.database,
+            host=self.hostname,
+            port=self.port,
+            user=self.username,
+            password=self.password,
+            db=self.database,
         )
+        connection.autocommit(True)
+        cursor = connection.cursor()
         try:
             cursor.execute(sql_command)
             data_tuple = cursor.fetchall()
